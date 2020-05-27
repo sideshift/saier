@@ -1,0 +1,57 @@
+{
+  "name": "@sideshift/saier",
+  "version": "0.2.3",
+  "description": "Cryptocurrency tipping bot for Telegram powered by SideShift.ai",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint --ext js,ts src",
+    "start": "node -r dotenv/config dist/index.js",
+    "dev": "nodemon -w src -e ts -x 'ts-node -r dotenv/config src/index.ts'",
+    "prepublishOnly": "npm run lint && npm run build"
+  },
+  "keywords": [
+    "apollo-server-",
+    "graphql",
+    "introspection",
+    "playground",
+    "typescript",
+    "javascript",
+    "security"
+  ],
+  "author": "SideShift.ai <hello@sideshift.ai>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "4.17.6",
+    "@types/jest": "25.2.1",
+    "@types/node": "13.13.4",
+    "@typescript-eslint/eslint-plugin": "2.30.0",
+    "@typescript-eslint/parser": "2.30.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-typescript": "7.2.1",
+    "eslint-config-airbnb-typescript-prettier": "2.1.1",
+    "eslint-config-prettier": "6.11.0",
+    "jest": "25.5.3",
+    "prettier": "^1.18.2",
+    "ts-jest": "25.4.0",
+    "ts-node": "8.9.1",
+    "typescript": "3.8.3"
+  },
+  "dependencies": {
+    "@types/lodash": "4.14.152",
+    "@types/qr-image": "3.2.2",
+    "@types/sqlite3": "3.1.6",
+    "body-parser": "1.19.0",
+    "dotenv": "8.2.0",
+    "lodash": "4.17.15",
+    "p-memoize": "4.0.0",
+    "reflect-metadata": "0.1.13",
+    "sqlite": "4.0.7",
+    "sqlite3": "4.2.0",
+    "telegraf": "3.38.0",
+    "typeorm": "0.2.25",
+    "typeorm-naming-strategies": "1.1.0"
+  }
+}
