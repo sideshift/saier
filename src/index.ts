@@ -19,8 +19,9 @@ const main = async (): Promise<void> => {
 
   const sideshiftClient = sideshift.createClient({
     secret: config.sideshiftSecret,
-    baseUrl: config.sideshiftBaseUrl,
+    ...(config.sideshiftBaseUrl ? { baseUrl: config.sideshiftBaseUrl } : {}),
   });
+
   const sideshiftFacts = await sideshiftClient.getFacts();
 
   const bot = new Telegraf<BotContext>(config.telegramToken);

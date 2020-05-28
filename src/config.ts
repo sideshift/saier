@@ -18,7 +18,7 @@ export const readConfig = memoize((env = process.env) => ({
   sideshiftSecret: required('SAIER_SIDESHIFT_SECRET'),
   telegramToken: required('SAIER_TELEGRAM_TOKEN'),
   affiliate: required('SAIER_SIDESHIFT_AFFILIATE'),
-  ...(env.SIDESHIFT_BASE_URL ? { sideshiftBaseUrl: env.SIDESHIFT_BASE_URL } : {}),
+  sideshiftBaseUrl: env.SIDESHIFT_BASE_URL,
 }));
 
 export type Config = ReturnType<typeof readConfig>;
