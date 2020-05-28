@@ -138,11 +138,14 @@ export class Transfer {
 }
 
 export const connection = pMemoize(async (config: Config) => {
+  const ssl = process.env.PGSSLMODE === 'off' ? false : { rejectUnauthorized: false };
+
   return createConnection({
     type: 'postgres',
     url: config.databaseUrl,
     entities: [Account, SideshiftOrder, SideshiftDeposit, Transfer],
     logging: true,
     namingStrategy: new SnakeNamingStrategy(),
+    extra: { ssl },
   });
 });
