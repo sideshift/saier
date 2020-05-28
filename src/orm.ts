@@ -1,32 +1,32 @@
 import 'reflect-metadata';
-import * as sqlite3 from 'sqlite3';
-import { open as openDb } from 'sqlite';
 import { Entity, Column, PrimaryColumn, OneToMany, ManyToOne, createConnection } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import * as pMemoize from 'p-memoize';
 import { Config } from './config';
 
-const createNumericAsStringValueTransformer = (decimals: number) => ({
-  to: (value: any): any =>
-    typeof value === 'number' ? parseFloat(value.toFixed(decimals)).toString() : value.toString(),
-  from: (value: any): any =>
-    typeof value === 'number' ? parseFloat(value.toFixed(decimals)).toString() : value.toString(),
-});
-
-const saiAmountValueTransformer = createNumericAsStringValueTransformer(4);
+export enum SystemAccountId {
+  funding = 'funding',
+}
 
 @Entity()
+/**
+ * Account with a balance, either for a user or system account
+ */
 export class Account {
-  @PrimaryColumn()
-  readonly id!: string;
+  @PrimaryColumn('text')
+  /**
+   * Unique identifier for the account. Telegram unique id is used for user accounts,
+   * hard coded
+   */
+  readonly id!: string | SystemAccountId;
 
-  @Column()
+  @Column('timestamptz', { generated: true })
   readonly createdAt!: string;
 
-  @Column()
-  readonly username!: string;
+  @Column('text', { nullable: true })
+  readonly username?: string | null;
 
-  @Column({ type: 'numeric', transformer: saiAmountValueTransformer })
+  @Column('numeric')
   readonly balance!: string;
 
   @OneToMany(
@@ -59,7 +59,7 @@ export class SideshiftOrder {
   @Column()
   readonly accountId!: string;
 
-  @Column()
+  @Column('timestamptz', { generated: true })
   readonly createdAt!: string;
 
   @ManyToOne(
@@ -130,23 +130,17 @@ export class Transfer {
   )
   readonly toAccount!: Account;
 
-  @Column({ type: 'numeric', transformer: saiAmountValueTransformer })
+  @Column('numeric')
   readonly amount!: string;
+
+  @Column('text', { nullable: true })
+  readonly internalRef?: string | null;
 }
 
 export const connection = pMemoize(async (config: Config) => {
-  const db = await openDb({
-    filename: config.databaseFilename,
-    driver: sqlite3.cached.Database,
-  });
-
-  await db.migrate();
-
-  await db.close();
-
   return createConnection({
-    type: 'sqlite',
-    database: config.databaseFilename,
+    type: 'postgres',
+    url: config.databaseUrl,
     entities: [Account, SideshiftOrder, SideshiftDeposit, Transfer],
     logging: true,
     namingStrategy: new SnakeNamingStrategy(),

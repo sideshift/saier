@@ -99,15 +99,13 @@ const main = async (): Promise<void> => {
     telegramUserId: string,
     username: string
   ): Promise<orm.Account> => {
-    let account = await conn.getRepository(orm.Account).findOne(telegramUserId);
+    const account = await conn.getRepository(orm.Account).findOne(telegramUserId);
 
     if (account) {
       return account;
     }
 
-    console.dir({ telegramUserId });
-
-    account = await conn.getRepository(orm.Account).save(
+    await conn.getRepository(orm.Account).save(
       Object.assign(new orm.Account(), {
         id: telegramUserId,
         username,
@@ -115,7 +113,7 @@ const main = async (): Promise<void> => {
       })
     );
 
-    return account;
+    return getOrCreateAccountForTelegramUser(telegramUserId, username);
   };
 
   const commandWrapper = <T extends BotContext>(handler: (ctx: T) => Promise<void>) => async (
@@ -153,8 +151,6 @@ const main = async (): Promise<void> => {
   bot.command(
     'balance',
     commandWrapper(async ctx => {
-      console.log(typeof ctx.account.balance, ctx.account.balance);
-
       await ctx.reply(`${ctx.account.balance} SAI`);
     })
   );
@@ -177,8 +173,6 @@ const main = async (): Promise<void> => {
 
       const { args, account } = ctx;
 
-      console.log({ args });
-
       if (args.length < 2) {
         await usage();
         return;
@@ -198,7 +192,7 @@ const main = async (): Promise<void> => {
         .findOne({ username: receiverUsername });
 
       if (!receiver) {
-        await ctx.reply(`I don't know who @${receiverUsername} is. Have them DM me /start`);
+        await ctx.reply(`I don't know who @${receiverUsername} is. Have them say /sai`);
         return;
       }
 
@@ -285,7 +279,7 @@ const main = async (): Promise<void> => {
       });
 
       console.log(
-        `Created order #${order.id} for withdraw request from ${ctx.username} with transfer #${transfer.id}`
+        `Created order ${order.id} for withdraw request from ${ctx.username} with transfer ${transfer.id}`
       );
 
       await ctx.reply(`OK!`);
@@ -319,7 +313,9 @@ const main = async (): Promise<void> => {
         settleAddress: '',
       });
 
-      console.log(`Created order ${order.id}`);
+      console.log(
+        `Created order ${order.id} for user ${ctx.username} to deposit ${depositMethodId}`
+      );
 
       await conn.getRepository(orm.SideshiftOrder).insert(
         Object.assign(new orm.SideshiftOrder(), {

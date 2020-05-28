@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { memoize } from 'lodash';
 
 const required = (key: string, env = process.env): string => {
@@ -11,8 +10,11 @@ const required = (key: string, env = process.env): string => {
   return value;
 };
 
+/**
+ * Read configuration from environment variables with defaults.
+ */
 export const readConfig = memoize((env = process.env) => ({
-  databaseFilename: path.join(__dirname, '../', env.DATABASE_FILENAME || 'saier.db'),
+  databaseUrl: env.DATABASE_URL || 'postgres://localhost/saier_dev',
   sideshiftSecret: required('SAIER_SIDESHIFT_SECRET'),
   telegramToken: required('SAIER_TELEGRAM_TOKEN'),
   affiliate: required('SAIER_SIDESHIFT_AFFILIATE'),

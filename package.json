@@ -6,20 +6,19 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
     "lint": "eslint --ext js,ts src",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -w src -e ts -x 'ts-node -r dotenv/config src/index.ts'",
-    "prepublishOnly": "npm run lint && npm run build"
+    "db:create": "psql -c 'create database saier_dev' postgres",
+    "db:migrate": "pg-migrate -d migrations -u ${DATABASE_URL:-postgres://localhost/saier_dev}"
   },
   "keywords": [
-    "apollo-server-",
-    "graphql",
-    "introspection",
-    "playground",
-    "typescript",
-    "javascript",
-    "security"
+    "sideshift.ai",
+    "sideshift",
+    "telegram",
+    "tipping",
+    "bot",
+    "cryptocurrency"
   ],
   "author": "SideShift.ai <hello@sideshift.ai>",
   "license": "MIT",
@@ -40,16 +39,16 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
+    "@sideshift/toolkit": "0.2.0",
     "@types/lodash": "4.14.152",
     "@types/qr-image": "3.2.2",
-    "@types/sqlite3": "3.1.6",
     "body-parser": "1.19.0",
     "dotenv": "8.2.0",
     "lodash": "4.17.15",
     "p-memoize": "4.0.0",
+    "pg": "8.2.1",
+    "pg-migrate": "2.0.1",
     "reflect-metadata": "0.1.13",
-    "sqlite": "4.0.7",
-    "sqlite3": "4.2.0",
     "telegraf": "3.38.0",
     "typeorm": "0.2.25",
     "typeorm-naming-strategies": "1.1.0"
