@@ -6,7 +6,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "tsc",
+    "tsc": "tsc",
+    "build": "npm run tsc",
     "lint": "eslint --ext js,ts src",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -w src -e ts -x 'ts-node -r dotenv/config src/index.ts'",
