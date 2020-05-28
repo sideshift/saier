@@ -7,7 +7,7 @@
     "tsc": "tsc",
     "build": "npm run tsc",
     "lint": "eslint --ext js,ts src",
-    "start": "node -r dotenv/config dist/index.js",
+    "start": "node -r source-map-support/register -r dotenv/config dist/index.js",
     "dev": "nodemon -w src -e ts -x 'ts-node -r dotenv/config src/index.ts'",
     "db:create": "psql -c 'create database saier_dev' postgres",
     "db:migrate": "pg-migrate -d migrations -u ${DATABASE_URL:-postgres://localhost/saier_dev}",
@@ -47,6 +47,7 @@
     "pg": "8.2.1",
     "pg-migrate": "2.0.1",
     "reflect-metadata": "0.1.13",
+    "source-map-support": "0.5.19",
     "telegraf": "3.38.0",
     "typeorm": "0.2.25",
     "typeorm-naming-strategies": "1.1.0"
