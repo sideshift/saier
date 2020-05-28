@@ -2,8 +2,6 @@
   "name": "@sideshift/saier",
   "version": "0.0.0",
   "description": "Cryptocurrency tipping bot for Telegram powered by SideShift.ai",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "tsc": "tsc",
