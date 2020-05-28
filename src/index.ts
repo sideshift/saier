@@ -321,7 +321,7 @@ const main = async (): Promise<void> => {
         sessionSecret: config.sideshiftSecret,
         depositMethodId,
         settleMethodId: 'saibal',
-        settleAddress: '',
+        settleAddress: config.affiliate,
       });
 
       console.log(
