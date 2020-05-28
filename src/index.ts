@@ -146,7 +146,17 @@ const main = async (): Promise<void> => {
       account: await getOrCreateAccountForTelegramUser(userId, username),
     });
 
-    await handler(ctx).catch(error => ctx.reply(error.stack));
+    try {
+      await handler(ctx);
+    } catch (error) {
+      if (process.env.NODE_ENV === 'production') {
+        await ctx.reply(`Error!`);
+      } else {
+        await ctx.reply(error.stack);
+      }
+
+      console.error(error.stack);
+    }
   };
 
   bot.command(
