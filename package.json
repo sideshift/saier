@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "tsc",
     "lint": "eslint --ext js,ts src",
     "start": "node -r dotenv/config dist/index.js",
