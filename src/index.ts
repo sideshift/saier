@@ -225,7 +225,7 @@ const main = async (): Promise<void> => {
           })
         );
       } catch (error) {
-        if (error.message.match(/CHECK constraint failed: account/)) {
+        if (error.message.match(/account_check/)) {
           await ctx.reply(`Insufficient funds`);
           return;
         }
@@ -274,7 +274,7 @@ const main = async (): Promise<void> => {
           })
         );
       } catch (error) {
-        if (error.message.match(/CHECK constraint failed: account/)) {
+        if (error.message.match(/account_check/)) {
           await ctx.reply(`Insufficient funds`);
           return;
         }
