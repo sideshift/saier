@@ -229,6 +229,8 @@ const main = async (): Promise<void> => {
           await ctx.reply(`Insufficient funds`);
           return;
         }
+
+        throw error;
       }
 
       await ctx.reply(`You tipped ${amount} SAI to @${receiverUsername}`);
