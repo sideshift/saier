@@ -240,6 +240,11 @@ const main = async (): Promise<void> => {
   bot.command(
     'withdraw',
     commandWrapper(async ctx => {
+      if (ctx.chat?.type !== 'private') {
+        await ctx.reply(`Command must be used in a private chat`);
+        return;
+      }
+
       const usage = () =>
         ctx.reply(
           `Usage: /withdraw <btc/bch> <address> <amount in sai>. Example: /withdraw bch bitcoincash:qqu0fl22ar6r66m3y03w33d6sd9hmuwp3qnkwckjmh 1000`
