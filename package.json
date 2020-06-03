@@ -7,8 +7,8 @@
     "tsc": "tsc",
     "build": "npm run tsc",
     "lint": "eslint --ext js,ts src",
-    "start": "node -r source-map-support/register -r dotenv/config dist/index.js",
-    "dev": "nodemon -w src -e ts -x 'ts-node -r dotenv/config src/index.ts'",
+    "start": "node -r source-map-support/register -r dotenv/config dist/start.js",
+    "dev": "nodemon -w src -e ts -x 'ts-node -r dotenv/config src/start.ts'",
     "db:create": "psql -c 'create database saier_dev' postgres",
     "db:migrate": "pg-migrate -d migrations -u ${DATABASE_URL:-postgres://localhost/saier_dev}",
     "heroku-postbuild": "npm run build && npm run db:migrate"

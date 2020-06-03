@@ -9,6 +9,11 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'import/prefer-default-expert': 'off',
     'max-classes-per-file': 'off',
+    'no-console': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'import/prefer-default-export': 'off',
+    'no-restricted-syntax': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
   plugins: ['@typescript-eslint'],
   extends: [
