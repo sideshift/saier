@@ -10,7 +10,7 @@ export type BotContext = telegraf.Context & {
   args: string[];
   account: orm.Account;
   conn: Connection;
-  sideshiftClient: sideshift.RestClient;
+  sideshiftClient: ReturnType<typeof sideshift.createClient>;
   config: Config;
   sideshiftFacts: sideshift.GetFactsResponse;
 };
