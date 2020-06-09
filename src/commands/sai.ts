@@ -55,7 +55,9 @@ const saiCommandHandler: CommandHandler = async ctx => {
     throw error;
   }
 
-  await ctx.reply(`You tipped ${amount} SAI to @${receiverUsername}`);
+  const senderUsername = ctx.from?.username ?? 'You';
+
+  await ctx.reply(`${senderUsername} tipped ${amount} SAI to @${receiverUsername}`);
 };
 
 export default saiCommandHandler;
