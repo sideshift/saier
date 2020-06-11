@@ -62,13 +62,13 @@ const main = async (config: Config): Promise<void> => {
     try {
       await next();
     } catch (error) {
+      console.error(error.stack);
+
       if (process.env.NODE_ENV === 'production') {
         await ctx.reply(`Error!`);
       } else {
         await ctx.reply(error.stack);
       }
-
-      console.error(error.stack);
     }
   });
 
