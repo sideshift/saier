@@ -32,7 +32,10 @@ const main = async (config: Config): Promise<void> => {
     const username = ctx.from?.username;
 
     if (!username) {
-      await ctx.reply(`You need to set a username for your Telegram account`);
+      if (ctx.chat?.type === 'private') {
+        await ctx.reply(`You need to set a username for your Telegram account`);
+      }
+
       return;
     }
 
