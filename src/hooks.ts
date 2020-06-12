@@ -1,11 +1,12 @@
 import { Connection } from 'typeorm';
 import Telegraf from 'telegraf';
 import * as sideshift from '@sideshift/toolkit';
+import { createHooksReceiver } from '@sideshift/toolkit/hooks/express';
 import { BotContext } from './types';
 import * as orm from './orm';
 import { Config } from './config';
 
-const createHooksReceiver = ({
+const create = ({
   bot,
   conn,
   config,
@@ -77,7 +78,7 @@ const createHooksReceiver = ({
     );
   };
 
-  return sideshift.createHooksReceiver({
+  return createHooksReceiver({
     port: +process.env.PORT!,
     secret: config.sideshiftSecret,
     onDepositCreate: handleDepositHook,
@@ -85,4 +86,4 @@ const createHooksReceiver = ({
   });
 };
 
-export default createHooksReceiver;
+export default create;

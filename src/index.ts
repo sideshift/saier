@@ -5,7 +5,7 @@ import * as orm from './orm';
 import commandHandlers from './commands';
 import { BotContext } from './types';
 import { getOrCreateAccountForTelegramUser, getProcessExitPromise } from './utils';
-import createHooksReceiver from './hooks';
+import create from './hooks';
 
 const main = async (config: Config): Promise<void> => {
   const conn = await orm.connection(config);
@@ -19,7 +19,7 @@ const main = async (config: Config): Promise<void> => {
 
   const bot = new Telegraf<BotContext>(config.telegramToken);
 
-  const hooks = createHooksReceiver({ bot, conn, config });
+  const hooks = create({ bot, conn, config });
 
   // Hydrate context
   bot.use(async (ctx, next) => {
@@ -50,7 +50,9 @@ const main = async (config: Config): Promise<void> => {
       username,
       args,
       sideshiftFacts,
+      sideshiftClient,
       conn,
+      config,
       account: await getOrCreateAccountForTelegramUser(conn, userId, username),
     });
 

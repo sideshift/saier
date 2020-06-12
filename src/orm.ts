@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Entity, Column, PrimaryColumn, OneToMany, ManyToOne, createConnection } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import * as pMemoize from 'p-memoize';
+import pMemoize from 'p-memoize';
 import { Config } from './config';
 
 export enum SystemAccountId {
