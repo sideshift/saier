@@ -64,7 +64,7 @@ const withdrawCommandHandler: CommandHandler = async ctx => {
     `Created order ${order.id} for withdraw request from ${ctx.username} with transfer ${transfer.id}`
   );
 
-  await ctx.reply(`OK!`);
+  await ctx.reply(`OK! https://sideshift.ai/orders/${order.id}`);
 };
 
 export default withdrawCommandHandler;
